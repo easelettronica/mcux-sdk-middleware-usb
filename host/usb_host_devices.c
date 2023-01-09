@@ -1063,7 +1063,9 @@ usb_status_t USB_HostAttachDevice(usb_host_handle hostHandle,
     if (hostInstance->deviceList != NULL)
     {
         *deviceHandle = NULL;
+#ifdef HOST_ECHO
         usb_echo("device has attached\r\n");
+#endif
         return kStatus_USB_Busy;
     }
 #endif

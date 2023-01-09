@@ -1225,10 +1225,14 @@ usb_status_t USB_HostHubDeviceEvent(usb_host_handle hostHandle,
                 /* print hub information */
                 (void)USB_HostHelperGetPeripheralInformation(deviceHandle, (uint32_t)kUSB_HostGetDeviceLevel,
                                                              &infoValue);
+#ifdef HOST_ECHO
                 (void)usb_echo("hub attached:level=%u ", infoValue);
+#endif
                 (void)USB_HostHelperGetPeripheralInformation(deviceHandle, (uint32_t)kUSB_HostGetDeviceAddress,
                                                              &infoValue);
+#ifdef HOST_ECHO
                 (void)usb_echo("address=%u\r\n", infoValue);
+#endif
 
                 /* initialize hub mutex */
                 if (hubGlobal->hubMutex == (osa_mutex_handle_t)NULL)
@@ -1325,10 +1329,14 @@ usb_status_t USB_HostHubDeviceEvent(usb_host_handle hostHandle,
                 /* print hub information */
                 (void)USB_HostHelperGetPeripheralInformation(hubInstance->deviceHandle,
                                                              (uint32_t)kUSB_HostGetDeviceLevel, &infoValue);
+#ifdef HOST_ECHO
                 (void)usb_echo("hub detached:level=%u ", infoValue);
+#endif
                 (void)USB_HostHelperGetPeripheralInformation(deviceHandle, (uint32_t)kUSB_HostGetDeviceAddress,
                                                              &infoValue);
+#ifdef HOST_ECHO
                 (void)usb_echo("address=%u\r\n", infoValue);
+#endif
                 hubInstance->invalid = 1U;
                 /* detach hub ports' devices */
                 for (uint8_t portIndex = 0U; portIndex < hubInstance->portCount; ++portIndex)
